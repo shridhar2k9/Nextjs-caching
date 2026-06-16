@@ -1,8 +1,10 @@
 import Messages from '@/components/messages';
+import { unstable_noStore } from 'next/cache';
+
 
 // Incremental static Regeneration (ISR)
 // const revalidate = 5;
-const dynamic = "no-store"
+// const dynamic = "no-store"
 
 export default async function MessagesPage() {
   // this two option used to cache and to not caching config using fetch method
@@ -14,6 +16,8 @@ export default async function MessagesPage() {
     //   revalidate:5
     // }
   });
+  // instead of constant reserved revalidat amd dynamic we can import from next/cache unstable_nostore
+  unstable_noStore();
   const messages = await response.json();
 
   if (!messages || messages.length === 0) {
